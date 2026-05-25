@@ -10,7 +10,7 @@
 ![Plotly](https://img.shields.io/badge/Plotly-5.20-3F4F75?logo=plotly&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-**[🚀 Live Demo](https://harsh-ipl-analytics.streamlit.app/)** &nbsp;·&nbsp; **[📝 Blog Post]({{BLOG_URL}})** &nbsp;·&nbsp; **[💼 LinkedIn](www.linkedin.com/in/harsh-palyekar-790209295)**
+**[🚀 Live Demo](https://harsh-ipl-analytics.streamlit.app/)** &nbsp;·&nbsp; **[📝 Blog Post]({{BLOG_URL}})** &nbsp;·&nbsp; [💼 LinkedIn](https://www.linkedin.com/in/harsh-palyekar-790209295)
 
 </div>
 
