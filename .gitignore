@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Local sensitive data (keep this commented if you want to commit data)
+# *.csv
+# *.pkl
+# Raw source data (we use the *_clean.csv versions)
+ball_by_ball_data.csv
+ipl_matches_data.csv
+players-data-updated.csv
+teams_data.csv
+team_aliases.csv
+
+# Jupyter notebooks (optional - keep if you want them visible, remove if not)
+# *.ipynb
+# .ipynb_checkpoints/
+
+# Backup / scratch files
+app_ipl_branded.py
+*.bak
