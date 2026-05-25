@@ -16,15 +16,8 @@
 
 ---
 
-<!-- 
-TODO: Replace this with a screen recording GIF of your app. 
-Recommended: 8-15 seconds, showing Home → Team Analysis → Match Predictor → Simulator.
-Tools: ScreenToGif (Windows), Kap (Mac), or just screen-record + convert to GIF.
-Place the GIF at: assets/demo.gif
--->
-
 <div align="center">
-  <img src="assets/demo.gif" alt="IPL Analytics demo" width="800"/>
+  <img src="assets/screenshots/home.png" alt="IPL Analytics dashboard home page" width="900"/>
 </div>
 
 > Six-page Streamlit dashboard covering every ball bowled in IPL history (2008–2026). Ball-by-ball analytics across **288,226 deliveries** and **1,212 matches**, ML-powered match prediction using a Random Forest classifier on 15 engineered features, and a 10,000-iteration Monte Carlo playoff simulator.
@@ -54,6 +47,60 @@ T20 cricket has high **irreducible variance** — a single dropped catch, a rain
 | 🎯 **Match Predictor** | Live ML inference — pick teams + venue, get win probability with feature breakdown |
 | 🚀 **2026 Simulator** | Points table, strength scores, playoff bracket, Monte Carlo championship |
 | 🧠 **Model & Methodology** | Pipeline architecture, feature definitions, model comparison, feature importance |
+
+---
+
+## 📸 App Screenshots
+
+### Team Analysis — per-franchise deep dive with trophies, win rate, and venue breakdown
+
+<div align="center">
+  <img src="assets/screenshots/team-analysis.png" alt="Team Analysis page showing Mumbai Indians with 5 trophies, 54% win rate, and 285 matches" width="900"/>
+</div>
+
+### Match Predictor — live ML inference with team logos and prediction breakdown
+
+<div align="center">
+  <img src="assets/screenshots/match-predictor.png" alt="Match Predictor page showing CSK vs MI prediction at Arun Jaitley Stadium" width="900"/>
+</div>
+
+### IPL 2026 Simulator — projected playoff bracket and Monte Carlo championship odds
+
+<div align="center">
+  <img src="assets/screenshots/simulator.png" alt="2026 Simulator showing playoff bracket with Gujarat Titans winning grand final" width="900"/>
+</div>
+
+---
+
+## 📈 Sample Insights from the Data
+
+Three findings worth a closer look — full set of EDA plots in [`plots/`](plots/).
+
+### Which features actually drive match predictions
+
+<div align="center">
+  <img src="plots/11_feature_importance.png" alt="Feature importance bar chart from Random Forest model" width="800"/>
+</div>
+
+`overall_win_rate` dominates — historical team quality is the strongest signal. Toss-winning, despite the popular myth, barely moves the needle.
+
+### How T20 scoring patterns have evolved across three eras
+
+<div align="center">
+  <img src="plots/06_scoring_pattern_era.png" alt="Era comparison of average runs per over across IPL history" width="800"/>
+</div>
+
+Death-over scoring has accelerated dramatically — modern teams score noticeably faster in overs 16–20 than the 2008–2013 era.
+
+### How IPL batters get out
+
+<div align="center">
+  <img src="plots/08_dismissal_types.png" alt="Distribution of dismissal types across all IPL deliveries" width="800"/>
+</div>
+
+Catches dominate by a wide margin — but the long tail of bowled, LBW, run out, and stumping shows the diversity of bowling threats batters face.
+
+---
 
 ## 🛠️ Technical Architecture
 
@@ -140,6 +187,20 @@ toss_won          ███                   0.032
 
 The raw dataset had **incorrect winners for 14 historical IPL finals** — the `match_winner` field stored the team that won the last match of the season, but the last *played* match isn't always the final due to schedule quirks. These were manually verified against trusted sources and corrected in `model3.ipynb` before computing trophy counts and training the model.
 
+## 📓 Notebooks
+
+The data science work behind the app, in execution order:
+
+| Notebook | What it does |
+|---|---|
+| [`datacleaning.ipynb`](notebooks/datacleaning.ipynb) | Map team_ids, fix Rising Pune duplicate, normalize seasons |
+| [`feature_engineering.ipynb`](notebooks/feature_engineering.ipynb) | Build the 15 features with `.shift(1)` no-leakage logic |
+| [`eda_visualisations.ipynb`](notebooks/eda_visualisations.ipynb) | Exploratory analysis — basis for the EDA Dashboard page |
+| [`model2.ipynb`](notebooks/model2.ipynb) | Train LR, RF, XGBoost with time-based split |
+| [`model3.ipynb`](notebooks/model3.ipynb) | Phase-split features and manual correction of 14 historical finals |
+
+Open any notebook on GitHub for a rendered view of code, outputs, and markdown.
+
 ## 🔮 Roadmap
 
 - [ ] Player-level analysis page (career arcs, matchup heatmaps)
@@ -151,8 +212,10 @@ The raw dataset had **incorrect winners for 14 historical IPL finals** — the `
 
 ```
 ipl-analytics/
-├── app.py                          # Main Streamlit application (1,900 LOC)
+├── app.py                          # Main Streamlit application (~1,900 LOC)
 ├── requirements.txt                # Pinned dependencies
+├── .streamlit/
+│   └── config.toml                 # Theme settings
 ├── matches_clean.csv               # 1,212 matches
 ├── deliveries_clean.csv            # 288K deliveries
 ├── points_table_2026.csv
@@ -162,13 +225,15 @@ ipl-analytics/
 ├── scaler.pkl                      # StandardScaler (for LR baseline)
 ├── features.pkl                    # Feature name list
 ├── assets/
-│   └── logos/                      # 16 team logos
+│   ├── logos/                      # 16 team logos
+│   └── screenshots/                # App page screenshots
 ├── notebooks/                      # Training and EDA notebooks
 │   ├── datacleaning.ipynb
 │   ├── feature_engineering.ipynb
 │   ├── eda_visualisations.ipynb
 │   ├── model2.ipynb
 │   └── model3.ipynb
+├── plots/                          # Exported EDA chart images
 └── README.md
 ```
 
